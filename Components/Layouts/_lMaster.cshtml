@@ -1,0 +1,36 @@
+﻿@{
+    var db = Database.Open("Datebase");
+
+
+    var dbstring = "SELECT * FROM Settings WHERE Id = @0";
+  
+    var dlang = db.QuerySingle(dbstring, "1"); //geting Site Lang
+
+    var dname = db.QuerySingle(dbstring, "2"); //geting Site Name
+
+    var dps = db.QuerySingle(dbstring, "3"); //geting Page Name Separator
+
+    var dmeta = db.QuerySingle(dbstring, "4"); //geting meta enable
+}
+
+<!DOCTYPE html>
+
+<html lang="@dlang.SetValue">
+   <head>
+        <meta charset="utf-8" />
+        <title>@Page.Title @dps.SetValue @dname.SetValue</title>
+
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+        @if(dmeta.SetValue == "on"){
+        <meta name="description" content="@Page.Description"/>
+        <meta name="keywords" content="@Page.Keywords"/>
+        <meta name="author" content="@Page.Author"/>
+        }
+
+        @RenderSection("head_code", false)
+    </head>
+    <body>
+        @RenderBody()
+    </body>
+</html>

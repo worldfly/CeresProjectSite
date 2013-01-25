@@ -1,0 +1,12 @@
+﻿@{
+    Layout = "_lMaster.cshtml";
+    Page.Title = Page.Title;
+    Page.Description = Page.Description;
+    Page.Author = Page.Author;
+}
+@section head_code{
+    @RenderSection("head_code", false)
+
+}
+        @RenderBody()
+  

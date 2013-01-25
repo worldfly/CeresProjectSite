@@ -1,0 +1,36 @@
+﻿@{
+    var pageId = Context.GetRouteValue("pageId");
+    //var pageId0 = Context.GetRouteValue("p0");
+    //if(pageId == null){Response.SetStatus(HttpStatusCode.NotFound);}
+    
+    if (pageId == null){pageId = "default";}
+
+    var db = Database.Open("Datebase");
+
+    var page = db.QuerySingle("SELECT * FROM Pages WHERE Url = @0", pageId);
+    if (page == null) {
+       try{
+        page = db.QuerySingle("SELECT * FROM Pages WHERE Id = @0", pageId);
+        } catch{
+            Response.SetStatus(HttpStatusCode.NotFound);    
+        }
+        
+    }
+
+
+
+   Page.Title = page.Name;
+   Page.Description = page.Description;
+   Page.Author = page.Author;
+   Layout = "~/Components/Layouts/_l" + page.Layout + ".cshtml";
+
+   
+}
+
+
+@Html.Raw(page.Content)
+
+
+
+
+<script>(function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter206275 = new Ya.Metrika({id:206275, webvisor:true, clickmap:true, trackLinks:true, accurateTrackBounce:true, trackHash:true}); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/206275" style="position:absolute; left:-9999px;" alt="" /></div></noscript>

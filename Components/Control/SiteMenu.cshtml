@@ -1,0 +1,140 @@
+﻿@{
+    
+Page.Title = "Меню сайта";    
+var errorm = "";
+var IsValid = true;
+var linklabelvalid = false;
+var pagelinkvalid = false;
+
+
+    
+
+
+    var db = Database.Open("Datebase");
+
+    var deletepage = Request["deletemenuitem"];
+    if(deletepage == "true"){
+        
+        var deleteitemid = Request["itemid"];
+        
+        
+        db.Execute("delete from SiteMenu where Id=@0", deleteitemid);
+        Response.Redirect("SiteMenu");
+    }
+
+    var data = db.Query("select * from SiteMenu order by OrderId DESC");
+    var grid = new WebGrid(data);
+    
+    var pages = db.Query("Select Name from Pages order by Name");
+
+    if(IsPost){
+        AntiForgery.Validate();
+    var linklabel = Request["linklabel"];
+    if(linklabel.IsEmpty()){
+        linklabelvalid = true;
+        IsValid = false;
+    }
+
+    var pagelink = Request["pagelink"];
+    if(linklabel.IsEmpty()){
+        pagelinkvalid = true;
+        IsValid = false;
+    }
+    
+
+    var target = Request["Target"];
+
+    var linkorder = Request["linkorder"];
+    if(linkorder.IsEmpty()){
+        linkorder = "1";
+    }
+
+    if(IsValid){
+        try
+        {
+            db.Execute("INSERT INTO SiteMenu (Label, Link, Target, OrderId) VALUES (@0, @1, @2, @3)", linklabel, pagelink, target, linkorder);
+            Response.Redirect("~/Components/Control/SiteMenu");
+        }
+        catch (Exception ex)
+        {
+            
+            errorm = ex.Message.ToString();
+        }
+    }
+
+
+   }
+
+    
+}
+@errorm
+<h2>Добавление пункта меню</h2>
+<form action="@Request.Url"  method="post">
+    @AntiForgery.GetHtml()
+    <ol>
+        <li>
+            <label for="linklabel">Название пункта меню*</label>
+            <input type="text" name="linklabel" value=""/>
+            @if(linklabelvalid){
+                <text>
+                    <span class="form-error">
+                        Текст ссылки не может быть пустым
+                    </span>
+                </text>
+            }
+        </li>
+       @* <li >
+                <label for="pagelink">Select Page:</label>
+                 <select name="pagelink">
+                 @foreach (var row in pages)
+                 {
+                      <option value="@row.Name">@row.Name</option>
+                 }
+                    
+                 </select>
+             </li>*@
+             <li >
+                <label for="pagelink">Адрес ссылки*</label>
+                <input type="text" name="pagelink" value="" maxlength="250" />
+                 
+                 @if(pagelinkvalid){
+                <text>
+                    <span class="form-error">
+                        Ссылка должна куда-то вести
+                    </span>
+                </text>
+            }
+             </li>
+        <li >
+                <label for="Target">Target:</label>
+                  <select name="Target">
+                      <option value="_self">Same window</option>
+                      <option value="_blank">New window</option>
+                  </select>
+             </li>
+        <li>
+            <label for="linkorder">Номер пункта меню</label>
+            <input type="number" name="linkorder" value=""/>
+           
+        </li>
+        <li>
+            <input type="submit" value="Добавить"/>
+        </li>
+    </ol>
+</form>
+
+<h2>Доступные пункты меню</h2>
+@grid.GetHtml(tableStyle: "Grid",
+                headerStyle: "head",
+                alternatingRowStyle: "alt", 
+                columns:grid.Columns(
+                    grid.Column("Label", "Label", style: "GB"), 
+                    grid.Column("Link", format:@<i>@item.Link</i>),
+                    grid.Column("Order",format:@<span class="GB"><a href="SiteMenuChangeOrderId.cshtml?tn=rc_simplemenu&cv=1&id=@item.Id"><img
+                        src="/components/ui/images/control/up.gif" alt="up" class="GC"/></a>
+                    <a href="SiteMenuChangeOrderId.cshtml?tn=rc_simplemenu&cv=-1&id=@item.Id"><img src="/components/ui/images/control/down.gif" alt="down" class="rcGC" style="margin-right:10px" /></a>@item.OrderId</span>),
+                    grid.Column("Target", "Target"),
+                    grid.Column(format:@<a href="SiteMenu.cshtml?deletemenuitem=true&itemid=@item.Id" onclick="return confirm('Are you sure you want to delete ?')" title="Delete"><img
+                        src="/components/ui/images/control/delete.gif" class="GC" alt="Delete" /></a>)
+                                    )
+                            )

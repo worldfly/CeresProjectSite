@@ -1,0 +1,30 @@
+﻿@using System.Data;
+@using System.Xml;
+
+@{
+    Page.Title = "Панель управления"; 
+
+    XmlTextReader reader = new XmlTextReader("https://github.com/WorldFlyteam/InternalCMS/commits/master.atom");
+    DataSet ds = new DataSet();
+    try
+    {
+        ds.ReadXml(reader) ;
+    }
+    catch (Exception)
+    {}
+    
+}
+<div>
+
+   <ol reversed>
+       @foreach (DataRow entry in ds.Tables[2].Rows)
+       {
+       <li> 
+            <h3>@entry[2]</h3>
+           
+          
+         
+       </li>
+       }
+   </ol>
+</div>

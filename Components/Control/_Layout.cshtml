@@ -1,0 +1,72 @@
+﻿@{
+
+}
+
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <title>@Page.Title - Ceres Project</title>
+    <link href="~/Components/ui/css/Global.css" rel="stylesheet"/>
+    <link href="~/Components/ui/css/ControlPanel.css" rel="stylesheet"/>
+    <link href="~/Components/ui/css/grid-control.css" rel="stylesheet"/>
+    <script src="//code.jquery.com/jquery-1.9.0.min.js"></script>
+</head>
+<body>
+
+<div class="Page">
+    <div class="header">
+        <div class="branding">
+            <div class="app">
+                <a href="~/">Ceres Project</a>
+            </div>
+            <div class="site">
+                <a href="~/">Ваш сайт</a>
+                
+            </div>
+        </div>
+        <h1 class="page-title">
+            @Page.Title
+        </h1>
+    </div>
+    <div class="content">
+        <div class="main">
+            @RenderBody()
+        </div>
+    </div>
+    <div class="menu">
+        <ul class="menu-admin">
+            <li class="section-home">
+                <h3><a class="navicon-home" href="~/Components/Control/Default">Главная страница</a></h3>
+            </li>
+            <li class="section-pages">
+                <h3><a class="navicon-pages" href="~/Components/Control/AllPages">Все страницы</a></h3>
+            </li>
+            <li class="section-newpage">
+                <h3><a class="navicon-newpage" href="~/Components/Control/NewPage">Новая страница</a></h3>
+            </li>
+            
+            <li class="section-navigation">
+                <h3><a class="navicon-navigation" href="~/Components/Control/SiteMenu">Меню сайта</a></h3>
+            </li>
+            <li class="section-editor">
+                <h3><a class="navicon-editor" href="~/Components/Control/Editor">Редактор файлов</a></h3>
+            </li>
+            <li class="section-settings">
+                <h3><a class="navicon-settings" href="~/Components/Control/Settings">Настройки</a></h3>
+            </li>
+        </ul>
+        <div style="height: 500px;"></div>
+    </div>
+
+</div>
+<div class="bottom">
+
+    <div class="copyright">
+        @DateTime.Now.Year © World Fly development team
+    </div>
+</div>
+
+</body>
+</html>

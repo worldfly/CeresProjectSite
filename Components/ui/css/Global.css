@@ -1,0 +1,15 @@
+/*
+    The global style sheet
+    
+    */
+
+body {
+    font-family: Verdana, sans-serif;
+    font-size: 13px;
+}
+
+/* Font-familes varriates */
+
+.f-segoe{
+    font-family: 'Segoe UI', sans-serif;
+}

@@ -1,0 +1,160 @@
+body {
+
+    margin: 0;
+    background: #f3f4f5 url(/components/ui/images/adminNavBackground.gif) repeat-y top left;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-style: normal;
+font-weight: normal;
+}
+
+
+
+/* Layout */
+.header{
+    height: 50px;
+    margin: 16px 0 0 0;
+}
+
+.page-title{
+    padding: 14px 0 0 260px;
+text-shadow: rgba(0,0,0,.1) 0px 0px 1px;
+}
+
+.branding{
+    background: #323232;
+width: 240px;
+height: 50px;
+float: left;
+}
+
+.app{
+    float: left;
+font-size: 2.4em;
+padding: .4em 0;
+}
+
+.app a{
+    background: url(/components/ui/images/worldflyproject.png) no-repeat;
+    display: block;
+    height: 60px;
+    margin: -17px 0 0 14px;
+    text-indent: -9999px;
+    width: 60px;
+}
+
+.site{
+    font-size: 1.385em;
+}
+
+.site a{
+    color: #fff;
+    float: left;
+    line-height: 50px;
+    position: relative;
+    text-shadow: rgba(0,0,0,.9) 0px 0px 2px;
+    text-decoration: none;
+}
+
+.page{
+    background: #f3f4f5 url(/components/ui/images/adminNavBackground.gif) repeat-y top left;
+    min-height: 100%;
+}
+
+
+.menu{
+    background: #323232;
+    display: inline;
+    float: left;
+    position: relative;
+    width: 240px;
+}
+
+.content{
+    float: right;
+    margin-left: -240px;
+    width: 100%;
+    padding: 0 0 70px 0;
+}
+
+.main{
+    margin-left: 260px;
+    margin-right: 20px;
+}
+
+.bottom{
+    clear: both;
+    height: 70px;
+    margin-top: -70px;
+    background: url(/components/ui/images/ceres.png) no-repeat bottom left;
+}
+
+.copyright{
+    position: relative;
+    float: right;
+    top: 36px;
+    right: 16px;
+}
+
+.menu-admin{
+    list-style: none;
+    font-size: 85%;
+}
+
+.menu-admin li{
+    margin: 8px 0;
+}
+
+.menu-admin li h3 a{
+    line-height: 16px;
+    color: #aec3ce;
+    text-decoration: none;
+    padding: 0 0 0 20px;
+}
+
+.menu-admin li h3 a:hover{
+    color: #fff;
+}
+
+
+/* Pages */
+form ol{
+    margin-left: -30px; 
+}
+form ol, form ol li{
+    list-style: none;
+}
+
+form ol li{
+    padding-bottom: 5px;
+}
+
+form ol li label {
+    display: block;
+    font-size: 1.3em;
+}
+
+form ol li input {    
+    border: 1px solid #a6a6a6;    
+}
+
+.form-input{
+    margin-left: 10px;
+    border-radius: 1px;
+}
+
+.form-input-link{
+    margin-left: 10px;
+}
+
+
+
+
+.t-link{
+    color: #808080;
+}
+
+.form-error{
+    color: #f00;
+}

@@ -1,0 +1,82 @@
+﻿@{
+    Page.Title = "Настройки";
+
+    var db = Database.Open("Datebase");
+
+    var dmetavalue = "";
+    var errorm = "";
+
+    var dbstring = "SELECT * FROM Settings WHERE Id = @0";
+    var dlang = db.QuerySingle(dbstring, "1"); //geting Site Lang
+    var dname = db.QuerySingle(dbstring, "2"); //geting Site Name
+    var dps = db.QuerySingle(dbstring, "3"); //geting Page Name Separator
+    var dmeta = db.QuerySingle(dbstring, "4"); //geting meta enable
+    if(dmeta.SetValue == "on"){
+        dmetavalue = " checked=\"checked\" ";
+    } else {
+        dmetavalue = "";
+    }
+
+
+    if(IsPost){
+        AntiForgery.Validate();
+        var sitename = Request["sitename"];
+        if(sitename == null){
+            
+        }
+        var sitelang = Request["sitelang"];
+        if(sitelang == null){
+            
+        }
+        var pagesepr = Request["pagesepr"];
+        if(pagesepr == null){
+            
+        }
+        var sitemeta = Request["sitemeta"];
+        /*if(sitemeta == null){
+            sitemeta = "false";
+        }
+        sitemeta = "true";*/
+
+        try{
+            db.Execute("UPDATE Settings SET SetValue=@0 WHERE Id=@1", sitename, 2);
+            db.Execute("UPDATE Settings SET SetValue=@0 WHERE Id=@1", sitelang, 1);
+            db.Execute("UPDATE Settings SET SetValue=@0 WHERE Id=@1", pagesepr, 3);
+            db.Execute("UPDATE Settings SET SetValue=@0 WHERE Id=@1", sitemeta, 4);
+
+            
+            Response.Redirect("~/Components/Control/Settings");
+        } catch (Exception ex){
+            errorm = ex.Message.ToString();
+        }
+
+    }
+    
+}
+@errorm
+<form action="@Request.Url" method="post">
+    @AntiForgery.GetHtml()
+   
+    <ol>
+        <li>
+            <label for="sitename">Название сайта</label>
+            <input type="text" name="sitename" value="@dname.SetValue"/>
+        </li>
+        <li>
+            <label for="sitelang">Язык сайта</label>
+            <input type="text" name="sitelang" value="@dlang.SetValue"/>
+           
+        </li>
+        <li>
+            <label for="pagesepr">@dps.SetDescr</label>
+            <input type="text" name="pagesepr" value="@dps.SetValue"/>
+        </li>
+        <li>
+            <label for="sitemeta">@dmeta.SetDescr</label>
+            <input  type="checkbox" @Html.Raw(dmetavalue) name="sitemeta"/>
+        </li>
+        <li>
+        <input type="submit" value="Сохранить"/>
+        </li>
+    </ol>
+</form>
