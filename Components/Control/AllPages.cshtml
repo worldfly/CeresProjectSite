@@ -3,6 +3,16 @@
 
     var db = Database.Open("Datebase");
 
+    var deletepage = Request["deletepage"];
+    if(deletepage == "true"){
+        
+        var deleteitemid = Request["itemid"];
+        
+        
+        db.Execute("delete from Pages where Id=@0", deleteitemid);
+        Response.Redirect("AllPages");
+    }
+
     var data = db.Query("Select Id, Name, Date from Pages order by Date DESC");
 
     var grid = new WebGrid(source: data,
@@ -20,7 +30,7 @@
                     
                     grid.Column("Name", "Page Name", style: "GB"),
                     grid.Column("Last Edited", format: @<i>@item.Date</i>),
-                    grid.Column(format: @<a href="AllPages.cshtml?id=@item.Id" title="Delete" onclick="return confirm('Are you sure you want to delete ?')"><img
+                    grid.Column(format: @<a href="AllPages.cshtml?deletepage=true&itemid=@item.Id" title="Delete" onclick="return confirm('Are you sure you want to delete ?')"><img
                         src="/components/ui/images/control/_delete.gif" alt="Delete" class="GC" /></a>)
                 )
             )

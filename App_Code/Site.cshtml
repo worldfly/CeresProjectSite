@@ -19,3 +19,43 @@
     </nav>
 
 }
+
+
+@helper Footer(){
+<text>
+<hr/>
+    <div class="footer">
+                <div class="row">
+                    <div class="span2">
+                    <dl>
+                      <dt>Навигация</dt>
+                        <dd><a href="~/">Главная страница</a></dd>
+                        <dd><a href="~/Aviation">Авиация</a></dd>
+                        <dd><a href="~/Space">Космонавтика</a></dd>
+                        <dd><a href="//article.worldfly.info">Статьи</a></dd>
+                        <dd><a href="//blog.worldfly.info">Блог</a></dd>
+                        <dd><a href="//support.worldfly.info">Подробнее</a></dd>
+                    </dl>
+                </div>
+               <div class="span3">
+                    <dl>
+                      <dt>Социальные сети</dt>
+                        <dd><a href="~/">Главная страница</a></dd>
+                        
+                    </dl>
+                </div>
+               
+               <div class="span2" title="Ссылка на страницу">
+                  
+                    <img src="~/Components/qr?data=@Request.Url&scale=10" alt="@Request.Url" class="bottom-qr"/>
+                </div>
+                    <div class="span4 right hidden-phone">
+                        <a href="//support.worldfly.info/answer.cshtml/legal?topic=22011">
+                            <img src="//globalresources.worldfly.info/ads/image/320x180-copyright.jpg"/>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
+</text>
+}
